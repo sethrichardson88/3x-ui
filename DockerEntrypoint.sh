@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ -n "${PORT:-}" ] && [ -z "${XUI_PORT:-}" ]; then
+    export XUI_PORT="$PORT"
+fi
+
+if [ -n "${RAILWAY_PROJECT_ID:-}${RAILWAY_SERVICE_ID:-}${RAILWAY_ENVIRONMENT_ID:-}" ] && [ "$XUI_ENABLE_FAIL2BAN" = "true" ]; then
+    echo "Railway environment detected; disabling Fail2ban because NET_ADMIN/iptables are unavailable."
+    export XUI_ENABLE_FAIL2BAN="false"
+fi
+
 # Start fail2ban with the 3x-ipl jail
 if [ "$XUI_ENABLE_FAIL2BAN" = "true" ]; then
     LOG_FOLDER="${XUI_LOG_FOLDER:-/var/log/x-ui}"
