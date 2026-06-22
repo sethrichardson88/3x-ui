@@ -23,7 +23,13 @@ Set these in Railway only when needed:
 XUI_INIT_WEB_BASE_PATH=/
 XUI_LOG_LEVEL=info
 XUI_DB_TYPE=sqlite
+XUI_DB_FOLDER=/etc/x-ui
+XUI_LOG_FOLDER=/etc/x-ui
 ```
+
+Do not set `XUI_DB_FOLDER=x-ui` on Railway when using the `/etc/x-ui` volume;
+that stores SQLite data in the app working directory instead of the persistent
+volume.
 
 To use Railway Postgres instead of SQLite, add a Railway Postgres service and
 set:
