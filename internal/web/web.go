@@ -68,6 +68,7 @@ type wrapDistFS struct {
 }
 
 func (f *wrapDistFS) Open(name string) (fs.File, error) {
+	name = strings.TrimPrefix(name, "/")
 	file, err := f.FS.Open("dist/assets/" + name)
 	if err != nil {
 		return nil, err
