@@ -9,6 +9,11 @@ if [ -n "${RAILWAY_PROJECT_ID:-}${RAILWAY_SERVICE_ID:-}${RAILWAY_ENVIRONMENT_ID:
     export XUI_ENABLE_FAIL2BAN="false"
 fi
 
+if [ -n "${RAILWAY_PROJECT_ID:-}${RAILWAY_SERVICE_ID:-}${RAILWAY_ENVIRONMENT_ID:-}" ] && [ "$XUI_DEBUG" = "true" ]; then
+    echo "Railway environment detected; disabling XUI_DEBUG so embedded frontend assets are served."
+    export XUI_DEBUG="false"
+fi
+
 # Start fail2ban with the 3x-ipl jail
 if [ "$XUI_ENABLE_FAIL2BAN" = "true" ]; then
     LOG_FOLDER="${XUI_LOG_FOLDER:-/var/log/x-ui}"

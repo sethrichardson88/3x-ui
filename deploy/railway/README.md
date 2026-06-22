@@ -31,6 +31,11 @@ Do not set `XUI_DB_FOLDER=x-ui` on Railway when using the `/etc/x-ui` volume;
 that stores SQLite data in the app working directory instead of the persistent
 volume.
 
+Do not enable `XUI_DEBUG=true` in the Railway Docker image. Debug mode serves
+frontend assets from the source tree on disk; the production image serves the
+embedded frontend assets instead. The entrypoint forces debug mode off when it
+detects Railway.
+
 To use Railway Postgres instead of SQLite, add a Railway Postgres service and
 set:
 
